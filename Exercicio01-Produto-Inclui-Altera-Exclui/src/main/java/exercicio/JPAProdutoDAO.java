@@ -16,13 +16,6 @@ public class JPAProdutoDAO implements ProdutoDAO
 		{	// transiente - objeto novo: ainda não persistente
 			// persistente - apos ser persistido 
 			// destacado - objeto persistente não vinculado a um entity manager
-		
-
-			
-			
-			
-			
-			
 			
 			return umProduto.getId();
 		} 

@@ -43,6 +43,7 @@ public class Produto
 	// ********* Métodos do Tipo Get *********
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID")
 	public Long getId()
 	{	return id;
