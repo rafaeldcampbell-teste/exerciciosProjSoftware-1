@@ -19,7 +19,6 @@ INDEX VERSION 1.127+C:\Users\Aluno.L303-1B.000\Documents\ProjSoftware\.metadata\
 3886402465.index
 728296283.index
 3949887323.index
-1816425182.index
 14682029.index
 1622776731.index
 1455593261.index

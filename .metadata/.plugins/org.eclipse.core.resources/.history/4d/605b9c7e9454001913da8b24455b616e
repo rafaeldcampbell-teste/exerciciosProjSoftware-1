@@ -16,32 +16,22 @@ public class JPAProdutoDAO implements ProdutoDAO
 		{	// transiente - objeto novo: ainda não persistente
 			// persistente - apos ser persistido 
 			// destacado - objeto persistente não vinculado a um entity manager
-			em = FabricaDeEntityManager.criarSessao();
-			tx = em.getTransaction();
-			
-			tx.begin(); //inicia a transação
-			em.persist(umProduto); //faz uma inserção
-			tx.commit(); //commita as alterações
 			
 			return umProduto.getId();
 		} 
 		catch(RuntimeException e)
-		{	
-			if (tx != null)
+		{	if (tx != null)
 			{	
 				try
-				{	
-					tx.rollback(); //retorna ao estado anterior, caso a transação esteja aberta
+				{	tx.rollback();
 				}
 				catch(RuntimeException he)
-				{
-				}
+				{ }
 			}
 			throw e;
 		}
 		finally
-		{
-			em.close(); //fecha o manager
+		{		
 		}
 	}
 
