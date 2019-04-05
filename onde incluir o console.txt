@@ -1,0 +1,10 @@
+clique no projeto e siga:
+	maven > update project
+
+depois, siga:
+	C: > Users > Aluno.L303-1B.001
+
+marque para exibir ocultos e siga:
+	.m2 > repository > corejava > console > 1.0
+
+e transfira o arquivo console-1.0.jar para la
