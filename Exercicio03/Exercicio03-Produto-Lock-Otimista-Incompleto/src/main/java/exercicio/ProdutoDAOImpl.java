@@ -63,12 +63,12 @@ public class ProdutoDAOImpl implements ProdutoDAO
 			em.merge(umProduto);
 			tx.commit();
 		} 
-==>		catch(OptimisticLockException e)  // sub-classe de RuntimeException
+		catch(OptimisticLockException e)  // sub-classe de RuntimeException
 		{   
 			if (tx != null)
 		    {   tx.rollback();
 		    }
-==>			throw new EstadoDeObjetoObsoletoException();
+			throw new EstadoDeObjetoObsoletoException();
 		}
 		catch(RuntimeException e)
 		{   

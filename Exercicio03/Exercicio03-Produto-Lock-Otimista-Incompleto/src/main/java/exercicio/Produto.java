@@ -25,7 +25,7 @@ public class Produto
 	private double lanceMinimo;
 	private Date dataCadastro;
 	private Date dataVenda;
-
+	private int versao;
 ==>
 
 	// ********* Construtores *********
@@ -85,7 +85,16 @@ public class Produto
 	{	return Util.dateToStr(dataVenda);
 	}
 
+	@Version
+	public int getVersao() {
+		return versao;
+	}
+
 	// ********* Métodos do Tipo Set *********
+
+	public void setVersao(int versao) {
+		this.versao = versao;
+	}
 
 	@SuppressWarnings("unused")
 	private void setId(Long id)

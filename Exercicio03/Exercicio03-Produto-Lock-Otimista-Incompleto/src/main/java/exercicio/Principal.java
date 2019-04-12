@@ -88,7 +88,7 @@ public class Principal
 							catch(ProdutoNaoEncontradoException e)
 							{	System.out.println('\n' + e.getMessage());
 							}
-==>							catch(EstadoDeObjetoObsoletoException e)
+							catch(EstadoDeObjetoObsoletoException e)
 							{	System.out.println('\n' + "A operação não foi " +
 							        "efetuada: os dados que você " +
 							    	"tentou salvar foram modificados " +
@@ -113,7 +113,7 @@ public class Principal
 							catch(ProdutoNaoEncontradoException e)
 							{	System.out.println('\n' + e.getMessage());
 							}
-==>							catch(EstadoDeObjetoObsoletoException e)
+							catch(EstadoDeObjetoObsoletoException e)
 							{	System.out.println('\n' + "A operação não foi " +
 							        "efetuada: os dados que você " +
 							    	"tentou salvar foram modificados " +
