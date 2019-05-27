@@ -27,7 +27,7 @@ public class PrincipalLoja {
 		    
 		    switch (opcao) {
 			    case 1:{
-			    	endereco = Console.readLine('\n' + "Informe o nome do produto: ");
+			    	endereco = Console.readLine('\n' + "Informe o nome da Loja: ");
 			    	loja = new Loja(endereco);
 			    	id = lojaAppService.inclui(loja);
 			    	System.out.println("Loja "+id+" cadastrada com sucesso!");

@@ -1,55 +1,62 @@
-https://dev.mysql.com/downloads/
+DROP DATABASE IF EXISTS trabalho2;
+CREATE DATABASE trabalho2;
 
-Download MySQL Community Server
-
-Últimas versões:
-- 5.5
-- 5.6
-- 5.7
-- 8.0.12 (atual)
-
-DROP TABLE banco.lance;
-DROP TABLE banco.produto;
-
-CREATE TABLE banco.produto (
+CREATE TABLE trabalho2.lojas (
   id              INT(11) NOT NULL AUTO_INCREMENT,
-  nome            VARCHAR(30) NOT NULL,
-  descricao       VARCHAR(50) DEFAULT '',
-  lance_minimo    DECIMAL(8, 2) NOT NULL,
-  data_cadastro   DATE NOT NULL,
-  data_venda      DATE DEFAULT NULL,
+  endereco        VARCHAR(30) NOT NULL,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
-CREATE TABLE banco.lance (
-  id                INT(11) NOT NULL AUTO_INCREMENT,
-  valor             DECIMAL(10, 2) NOT NULL,
-  data_criacao      DATE NOT NULL,
-  produto_id        INT(11) NOT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT PRODUTO_LANCE_FK 
-  FOREIGN KEY (produto_id)
-  REFERENCES banco.produto(id) 
-  ON DELETE NO ACTION ON UPDATE RESTRICT
+CREATE TABLE trabalho2.funcionarios (
+  codigo           INT(11) NOT NULL AUTO_INCREMENT,
+  nome             VARCHAR(30) NOT NULL,
+  funcao     	   VARCHAR(30) NOT NULL,
+  lojas_id         INT(11) NOT NULL,
+  PRIMARY KEY (codigo),
+  CONSTRAINT LOJAS_FUNCIONARIOS_FK 
+  FOREIGN KEY (lojas_id)
+  REFERENCES trabalho2.lojas(id) 
+  ON DELETE NO ACTION ON UPDATE CASCADE
 )
 ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
-INSERT INTO produto(NOME, DESCRICAO, LANCE_MINIMO, DATA_CADASTRO)
-VALUES('TV SAMSUNG 20 POL', 'TV SAMSUNG 20 POL TELA PLANA', 2000, now());
+CREATE TABLE trabalho2.mesas (
+  id           	   INT(11) NOT NULL AUTO_INCREMENT,
+  numero           INT(11) NOT NULL,
+  funcionarios_id  INT(11) NOT NULL,
+  lojas_id         INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FUNCIONARIOS_MESAS_FK 
+  FOREIGN KEY (funcionarios_id)
+  REFERENCES trabalho2.funcionarios(codigo) 
+  ON DELETE NO ACTION ON UPDATE CASCADE,
+  CONSTRAINT LOJAS_MESAS_FK 
+  FOREIGN KEY (lojas_id)
+  REFERENCES trabalho2.lojas(id) 
+  ON DELETE NO ACTION ON UPDATE CASCADE
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
 
-INSERT INTO LANCE(VALOR, DATA_CRIACAO, PRODUTO_ID) VALUES
-(2100, now(), LAST_INSERT_ID()),
-(2200, now(), LAST_INSERT_ID());
-
-INSERT INTO produto(NOME, DESCRICAO, LANCE_MINIMO, DATA_CADASTRO)
-VALUES('TV SAMSUNG 22 POL', 'TV SAMSUNG 22 POL TELA PLANA', 2500, now());
-
-INSERT INTO LANCE(VALOR, DATA_CRIACAO, PRODUTO_ID) VALUES
-(2600, now(), LAST_INSERT_ID()),
-(2700, now(), LAST_INSERT_ID());
+CREATE TABLE trabalho2.atendimentos (
+  id           	   		INT(11) NOT NULL AUTO_INCREMENT,
+  inicioDoAtendimento   DATE NOT NULL,
+  fimDoAtendimento  	DATE NOT NULL,
+  valorTotalConta       FLOAT NOT NULL,
+  mesas_id				INT(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT MESAS_ATENDIMENTOS_FK 
+  FOREIGN KEY (mesas_id)
+  REFERENCES trabalho2.mesas(id) 
+  ON DELETE NO ACTION ON UPDATE CASCADE
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
 

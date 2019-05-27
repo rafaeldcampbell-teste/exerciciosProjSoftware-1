@@ -14,7 +14,7 @@
 			<property name="hibernate.format_sql"            value="true"/>
 
 
-            <property name="javax.persistence.jdbc.driver"   value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.driver"   value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url"      value="jdbc:mysql://localhost:3306/banco"/>
             <property name="javax.persistence.jdbc.user"     value="tester"/>
             <property name="javax.persistence.jdbc.password" value="Abc123##"/> 

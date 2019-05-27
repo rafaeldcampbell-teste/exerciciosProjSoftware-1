@@ -21,7 +21,6 @@ public class Loja {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
 	private String endereco;
 	
 	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();

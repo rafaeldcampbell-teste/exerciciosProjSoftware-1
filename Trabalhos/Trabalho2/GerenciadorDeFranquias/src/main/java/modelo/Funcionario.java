@@ -4,6 +4,9 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,10 +27,8 @@ public class Funcionario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int codigo;
 	
-	@Column
 	private String nome;
 
-	@Column
 	private String funcao;
 	
 	
@@ -75,7 +76,8 @@ public class Funcionario {
 	}
 	
 
-	//============metodos de associacao=============
+	//============metodos de associacao=============6
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "LOJAS_ID")
     public Loja getLoja() {

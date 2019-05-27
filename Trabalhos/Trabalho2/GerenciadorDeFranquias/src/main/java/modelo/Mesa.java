@@ -25,7 +25,6 @@ public class Mesa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
 	private int numero;
 	
 	private Funcionario funcionario;

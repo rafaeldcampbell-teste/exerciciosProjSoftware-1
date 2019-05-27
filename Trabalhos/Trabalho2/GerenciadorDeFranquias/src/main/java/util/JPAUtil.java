@@ -14,7 +14,7 @@ public class JPAUtil {
 
     static {
 	try {
-	    emf = Persistence.createEntityManagerFactory("exercicio");
+			emf = Persistence.createEntityManagerFactory("exercicio");
 	} catch (Throwable e) {
 	    e.printStackTrace();
 	    System.out.println(">>>>>>>>>> Mensagem de erro: " + e.getMessage());

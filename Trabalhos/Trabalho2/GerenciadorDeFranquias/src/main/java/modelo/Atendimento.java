@@ -21,13 +21,10 @@ public class Atendimento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
 	private Calendar inicioDoAtendimento;
 	
-	@Column
 	private Calendar fimDoAtendimento;
 	
-	@Column
 	private float valorTotalConta;
 	
 	private Mesa mesa;
