@@ -60,3 +60,26 @@ ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_general_ci;
 
+CREATE TABLE trabalho2.usuarios (
+  conta            CHAR(20) NOT NULL,
+  senha            VARCHAR(20) NOT NULL,
+  CONSTRAINT USUARIOS_PK 
+  PRIMARY KEY (conta)
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
+
+CREATE TABLE trabalho2.perfis (
+  id           	   		INT(11) NOT NULL AUTO_INCREMENT,
+  conta_id   			CHAR(20) NOT NULL,
+  perfil  				VARCHAR(20) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT PERFIS_USUARIO_FK 
+  FOREIGN KEY (conta_id)
+  REFERENCES trabalho2.usuarios(conta) 
+  ON DELETE NO ACTION ON UPDATE CASCADE
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
