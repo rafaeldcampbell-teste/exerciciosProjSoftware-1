@@ -1,0 +1,13 @@
+Para o teste desta aplicação, foram criados dois principais perfis: dba e adm.
+
+O Adm pode fazer tudo, menos incluir e excluir elementos; para inclusão e exclusão, apenas o dba pode executar.
+
+Foram criados dois usuários por padrão:
+
+usuario: adm
+senha: 123
+perfis: adm
+
+usuario: dba
+senha: 123
+perfis: adm, dba
