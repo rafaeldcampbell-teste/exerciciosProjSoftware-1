@@ -8,16 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+@NamedQueries({ @NamedQuery(name = "Lojas.recuperaLojas", query = "select l from Lojas l order by l.id")})
 
 @Entity
 @Table(name = "lojas")
 public class Lojas {
 	
 
-	private int id;
+	private Long id;
 	
 	private String endereco;
 	
@@ -37,7 +41,7 @@ public class Lojas {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-    public int getId() {
+    public Long getId() {
 		return id;
     }
 
@@ -48,7 +52,7 @@ public class Lojas {
     
     //====================Setters============================
     
-    public void setId(int id) {
+    public void setId(Long id) {
     	this.id = id;
     }
     

@@ -2,14 +2,14 @@ package dao.controle;
 
 import java.lang.reflect.Method;
 
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
 import anotacao.RecuperaConjunto;
 import anotacao.RecuperaLista;
 import anotacao.RecuperaObjeto;
 import anotacao.RecuperaUltimoOuPrimeiro;
 import dao.impl.JPADaoGenerico;
 import excecao.InfraestruturaException;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 
 public class InterceptadorDeDAO implements MethodInterceptor {
     /*

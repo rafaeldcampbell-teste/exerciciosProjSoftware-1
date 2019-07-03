@@ -12,16 +12,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+
+@NamedQueries({	@NamedQuery(name = "Funcionarios.recuperaFuncionarios", query = "select f from Funcionarios f order by f.id")})
+
 
 @Entity
 @Table(name = "funcionarios")
 public class Funcionarios {
 	
 
-	private int codigo;
+	private Long codigo;
 	
 	private String nome;
 
@@ -49,7 +55,7 @@ public class Funcionarios {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codigo")
-	public int getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
@@ -74,7 +80,7 @@ public class Funcionarios {
 	}
 	
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 

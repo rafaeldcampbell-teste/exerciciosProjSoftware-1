@@ -12,16 +12,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+@NamedQueries({ @NamedQuery(name = "Mesas.recuperaMesasPorLoja", query = "select m from Mesas m where m.loja.id = :idLoja order by m.numero"),
+	@NamedQuery(name = "Mesas.recuperaMesasPorFuncionario", query = "select m from Mesas m where m.funcionario.codigo = :codigoFuncionario order by m.numero")})
+
 
 @Entity
 @Table(name = "mesas")
 public class Mesas {
 	
 
-	private int id;
+	private Long id;
 	
 	private int numero;
 	
@@ -47,7 +53,7 @@ public class Mesas {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	public int getId() {
+	public Long getId() {
 		return this.id;
 	}
 	
@@ -72,7 +78,7 @@ public class Mesas {
 	}
 
 	
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

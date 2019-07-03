@@ -5,9 +5,14 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+@NamedQueries({ @NamedQuery(name = "Usuario.recuperaListaUsuarios", query = "select u from Usuario u where u.conta = :conta and u.senha = :senha"),
+	@NamedQuery(name = "Usuario.recuperaPerfis", query = "select p from Perfil p where p.usuario.conta = :conta order by p.perfil")})
 
 @Entity
 @Table(name = "usuarios")

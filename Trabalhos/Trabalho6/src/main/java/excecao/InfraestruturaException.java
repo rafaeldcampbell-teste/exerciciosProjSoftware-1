@@ -6,4 +6,8 @@ public class InfraestruturaException extends RuntimeException {
     public InfraestruturaException(Exception e) {
 	super(e);
     }
+    
+    public InfraestruturaException(String e) {
+	super(e);
+    }
 }

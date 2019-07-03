@@ -11,14 +11,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+@NamedQueries({ @NamedQuery(name = "Atendimentos.recuperaAtendimentos", query = "select a from Atendimentos a where a.mesa.id = :idMesa order by a.id")})
+
 
 @Entity
 @Table(name = "atendimentos")
 public class Atendimentos {
 
-	private int id;
+	private Long id;
 	
 	private Calendar inicioDoAtendimento;
 	
@@ -47,7 +52,7 @@ public class Atendimentos {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -91,7 +96,7 @@ public class Atendimentos {
 		this.valorTotalConta += valor;
 	}
 	
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
