@@ -2,7 +2,6 @@ package servico;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import anotacao.Perfil;
@@ -16,52 +15,56 @@ import modelo.Mesas;
 
 public class MesaAppService {
 
-	@Autowired
-	private MesaDAO mesaDAO;
-	@Autowired
-	private FuncionarioDAO funcionarioDAO;
-	@Autowired
-	private LojaDAO lojaDAO;
+	private MesaDAO mesaDAO = null;
+	private FuncionarioDAO funcionarioDAO = null;
+	private LojaDAO lojaDAO = null;
+	
+	public void setMesaDAO(MesaDAO mesaDAO) {
+		this.mesaDAO = mesaDAO;
+	}
+
+	public void setFuncionarioDAO(FuncionarioDAO funcionarioDAO) {
+		this.funcionarioDAO = funcionarioDAO;
+	}
+
+	public void setLojaDAO(LojaDAO lojaDAO) {
+		this.lojaDAO = lojaDAO;
+	}
+
 	
 	@Perfil(nomes= {"dba"})
 	@Transactional
-	public int inclui(Mesas mesa) {
-		return mesaDAO.inclui(mesa);
+	public Mesas inclui(Mesas umaMesa) {
+		Mesas mesa = mesaDAO.inclui(umaMesa);
+		return mesa;
 	}
 	
 	@Perfil(nomes= {"dba"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public void exclui(int id) throws ObjetoNaoEncontradoException {
-		mesaDAO.exclui(id);
+	public void exclui(Long id) throws ObjetoNaoEncontradoException {
+		Mesas mesa = mesaDAO.getPorId(id);
+		mesaDAO.exclui(mesa);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public Mesas recuperaUmaMesa(int id) throws ObjetoNaoEncontradoException {
-		return mesaDAO.recuperaUmaMesa(id);
+	public Mesas recuperaUmaMesa(Long id) throws ObjetoNaoEncontradoException {
+		return mesaDAO.getPorIdComLock(id);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public List<Mesas> recuperaMesasPorLoja(int id) throws ObjetoNaoEncontradoException{
-		Lojas loja = lojaDAO.recuperaUmaLoja(id);
+	public List<Mesas> recuperaMesasPorLoja(Long id) throws ObjetoNaoEncontradoException{
+		Lojas loja = lojaDAO.getPorIdComLock(id);
 		List<Mesas> mesas = mesaDAO.recuperaMesasPorLoja(loja);
-		
-		if(mesas.isEmpty()) {
-			System.out.println("======> Nenhuma mesa encontrada para esta loja!");
-		}
 		return mesas;
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public List<Mesas> recuperaMesasPorFuncionario(int codigo) throws ObjetoNaoEncontradoException {
-		Funcionarios funcionario = funcionarioDAO.recuperaUmFuncionario(codigo);
+	public List<Mesas> recuperaMesasPorFuncionario(Long codigo) throws ObjetoNaoEncontradoException {
+		Funcionarios funcionario = funcionarioDAO.getPorIdComLock(codigo);
 		List<Mesas> mesas = mesaDAO.recuperaMesasPorFuncionario(funcionario);
-		
-		if(mesas.isEmpty()) {
-			System.out.println("======> Nenhuma mesa encontrada para este funcionario!");
-		}
 		return mesas;
 	}
 }

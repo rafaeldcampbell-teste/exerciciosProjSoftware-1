@@ -2,7 +2,6 @@ package servico;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import anotacao.Perfil;
@@ -13,34 +12,36 @@ import modelo.Lojas;
 
 public class LojaAppService {
 
-	@Autowired
-	private LojaDAO lojaDAO;
+	private LojaDAO lojaDAO = null;
 	
+	public void setLojaDAO(LojaDAO lojaDAO) {
+		this.lojaDAO = lojaDAO;
+	}
+
 	@Perfil(nomes= {"dba"})
 	@Transactional
-	public int inclui(Lojas loja) {
-		return lojaDAO.inclui(loja);
+	public Lojas inclui(Lojas umaLoja) {
+		Lojas loja = lojaDAO.inclui(umaLoja);
+		return loja;
 	}
 	
 	@Perfil(nomes= {"dba"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public void exclui(int id) throws ObjetoNaoEncontradoException {
-		lojaDAO.exclui(id);
+	public void exclui(Long id) throws ObjetoNaoEncontradoException {
+		Lojas loja = lojaDAO.getPorId(id);
+		lojaDAO.exclui(loja);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public Lojas recuperaUmaLoja(int id) throws ObjetoNaoEncontradoException {
-		return lojaDAO.recuperaUmaLoja(id);
+	public Lojas recuperaUmaLoja(Long id) throws ObjetoNaoEncontradoException {
+		return lojaDAO.getPorIdComLock(id);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional
 	public List<Lojas> recuperaLojas() {
 		List<Lojas> lojas = lojaDAO.recuperaLojas();
-		if(lojas.isEmpty()) {
-			System.out.println("======> Nenhuma loja encontrada!");
-		}
 		return lojas;
 	}
 }

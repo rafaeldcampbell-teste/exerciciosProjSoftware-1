@@ -17,15 +17,15 @@ import servico.MesaAppService;
 
 public class PrincipalAtendimento {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws ParseException, ObjetoNaoEncontradoException {
-		int id;
-		int id_mesa;
+		long id;
+		long id_mesa;
 		float valorTotalConta;
 		Mesas mesa;
 		Atendimentos atendimento;
 		List<Atendimentos> atendimentos = new ArrayList<Atendimentos>();
 		
-		@SuppressWarnings("resource")
 		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
 		AtendimentoAppService atendimentoAppService = (AtendimentoAppService)fabrica.getBean ("atendimentoAppService");
@@ -38,8 +38,7 @@ public class PrincipalAtendimento {
 		    System.out.println("1. Cadastrar um atendimento em uma mesa");
 		    System.out.println("2. Remover um atendimento de uma mesa");
 		    System.out.println("3. Listar todos os atendimentos de uma mesa");
-		    System.out.println("4. Somar valor em um atendimento de uma mesa");
-		    System.out.println("5. Voltar");
+		    System.out.println("4. Voltar");
 
 		    int opcao = Console.readInt('\n' + "Digite um número entre 1 e 5:");
 		    try {
@@ -63,9 +62,9 @@ public class PrincipalAtendimento {
 			    		
 			    		atendimento = new Atendimentos(calIni, calFim, valorTotalConta, mesa);
 			    		
-			    		id = atendimentoAppService.inclui(atendimento);
+			    		atendimento = atendimentoAppService.inclui(atendimento);
 			    		
-			    		System.out.println("Atendimento "+id+" cadastrada com sucesso!");
+			    		System.out.println("Atendimento "+atendimento.getId()+" cadastrada com sucesso!");
 			    		break;
 			    	}
 			    	
@@ -116,25 +115,6 @@ public class PrincipalAtendimento {
 			    		break;
 			    	}
 			    	case 4:{
-			    		id = Console.readInt('\n' + "Digite o codigo do atendimento a qual deseja somar um valor: ");
-			    		
-						try {
-						    atendimento = atendimentoAppService.recuperaAtendimento(id);
-						} catch (ObjetoNaoEncontradoException e) {
-						    break;
-						}
-		
-						System.out.println('\n' + "Id = " + atendimento.getId() 
-												+ "\nInicio = " + atendimento.getInicioDoAtendimento()
-												+ "\nFim = "+ atendimento.getFimDoAtendimento()
-												+ "\nValor = " + atendimento.getValorTotalConta());
-		
-						float valor = (float) Console.readDouble('\n' + "Qual valor deseja somar? ");
-						
-						atendimentoAppService.atualizaValor(atendimento.getId(), valor);
-						break;
-			    	}
-			    	case 5:{
 				    	continua = false;
 				    	break;
 				    }

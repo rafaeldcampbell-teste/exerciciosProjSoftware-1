@@ -15,11 +15,43 @@
 
 	<!-- <bean id="produtoAppService" class="servico.impl.ProdutoAppServiceImpl" />  -->
 	
-    <bean id="lojaAppService" class="servico.LojaAppService" />
-    <bean id="atendimentoAppService" class="servico.AtendimentoAppService" /> 
-    <bean id="funcionarioAppService" class="servico.FuncionarioAppService" />
-    <bean id="mesaAppService" class="servico.MesaAppService" />
-    <bean id="loginService" class="login.LoginService" />      
+    <bean id="lojaAppService" class="servico.LojaAppService" >
+        <property name="lojaDAO" ref="LojaDAOImpl" />
+    </bean>
+    <bean id="atendimentoAppService" class="servico.AtendimentoAppService" >
+        <property name="atendimentoDAO" ref="AtendimentoDAOImpl" />
+        <property name="mesaDAO" ref="MesaDAOImpl" />
+    </bean>
+    <bean id="funcionarioAppService" class="servico.FuncionarioAppService" >
+        <property name="funcionarioDAO" ref="FuncionarioDAOImpl" />
+        <property name="lojaDAO" ref="LojaDAOImpl" />
+    </bean>
+    <bean id="mesaAppService" class="servico.MesaAppService" >
+        <property name="lojaDAO" ref="LojaDAOImpl" />
+        <property name="funcionarioDAO" ref="FuncionarioDAOImpl" />
+        <property name="mesaDAO" ref="MesaDAOImpl" />
+    </bean>
+    <bean id="loginService" class="login.LoginService" >
+        <property name="usuarioDAO" ref="UsuarioDAOImpl" />
+    </bean>      
+    
+    
+    
+    <bean id="AtendimentoDAOImpl" class="dao.controle.FabricaDeDao" factory-method="getDao">
+		<constructor-arg value="dao.impl.AtendimentoDAOImpl" />
+    </bean>
+    <bean id="FuncionarioDAOImpl" class="dao.controle.FabricaDeDao" factory-method="getDao">
+		<constructor-arg value="dao.impl.FuncionarioDAOImpl" />
+    </bean>
+    <bean id="LojaDAOImpl" class="dao.controle.FabricaDeDao" factory-method="getDao">
+		<constructor-arg value="dao.impl.LojaDAOImpl" />
+    </bean>
+    <bean id="MesaDAOImpl" class="dao.controle.FabricaDeDao" factory-method="getDao">
+		<constructor-arg value="dao.impl.MesaDAOImpl" />
+    </bean>
+    <bean id="UsuarioDAOImpl" class="dao.controle.FabricaDeDao" factory-method="getDao">
+		<constructor-arg value="dao.impl.UsuarioDAOImpl" />
+    </bean>
     
     <context:component-scan base-package="dao.impl" />
 

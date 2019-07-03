@@ -18,8 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-@NamedQueries({ @NamedQuery(name = "Mesas.recuperaMesasPorLoja", query = "select m from Mesas m where m.loja.id = :idLoja order by m.numero"),
-	@NamedQuery(name = "Mesas.recuperaMesasPorFuncionario", query = "select m from Mesas m where m.funcionario.codigo = :codigoFuncionario order by m.numero")})
+@NamedQueries({ @NamedQuery(name = "Mesas.recuperaMesasPorLoja", query = "select m from Mesas m where m.loja.id = ?1 order by m.numero"),
+	@NamedQuery(name = "Mesas.recuperaMesasPorFuncionario", query = "select m from Mesas m where m.funcionario.codigo = ?1 order by m.numero")})
 
 
 @Entity

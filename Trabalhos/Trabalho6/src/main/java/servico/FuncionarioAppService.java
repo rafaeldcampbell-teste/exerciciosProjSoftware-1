@@ -2,7 +2,6 @@ package servico;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import anotacao.Perfil;
@@ -14,38 +13,44 @@ import modelo.Lojas;
 
 public class FuncionarioAppService {
 
-	@Autowired
-	private FuncionarioDAO funcionarioDAO;
-	@Autowired
-	private LojaDAO lojaDAO;
+
+	private FuncionarioDAO funcionarioDAO = null;
+
+	private LojaDAO lojaDAO = null;
 	
+	public void setFuncionarioDAO(FuncionarioDAO funcionarioDAO) {
+		this.funcionarioDAO = funcionarioDAO;
+	}
+
+	public void setLojaDAO(LojaDAO lojaDAO) {
+		this.lojaDAO = lojaDAO;
+	}
+
 	@Perfil(nomes= {"dba"})
 	@Transactional
-	public int inclui(Funcionarios funcionario) {
-		return funcionarioDAO.inclui(funcionario);
+	public Funcionarios inclui(Funcionarios umFuncionario) {
+		Funcionarios funcionario = funcionarioDAO.inclui(umFuncionario);
+		return funcionario;
 	}
 	
 	@Perfil(nomes= {"dba"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public void exclui(int codigo) throws ObjetoNaoEncontradoException {
-		funcionarioDAO.exclui(codigo);
+	public void exclui(Long codigo) throws ObjetoNaoEncontradoException {
+		Funcionarios funcionario = funcionarioDAO.getPorId(codigo);
+		funcionarioDAO.exclui(funcionario);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public Funcionarios recuperaUmFuncionario(int codigo) throws ObjetoNaoEncontradoException {
-		return funcionarioDAO.recuperaUmFuncionario(codigo);
+	public Funcionarios recuperaUmFuncionario(Long codigo) throws ObjetoNaoEncontradoException {
+		return funcionarioDAO.getPorIdComLock(codigo);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public List<Funcionarios> recuperaFuncionarios(int id) throws ObjetoNaoEncontradoException{
-		Lojas loja = lojaDAO.recuperaUmaLoja(id);
+	public List<Funcionarios> recuperaFuncionarios(Long id) throws ObjetoNaoEncontradoException{
+		Lojas loja = lojaDAO.getPorId(id);
 		List<Funcionarios> funcionarios = funcionarioDAO.recuperaFuncionarios(loja);
-		
-		if(funcionarios.isEmpty()) {
-			System.out.println("======> Nenhum funcionario encontrado para esta loja!");
-		}
 		return funcionarios;
 	}
 }

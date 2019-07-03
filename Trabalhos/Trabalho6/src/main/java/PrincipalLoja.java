@@ -11,12 +11,12 @@ import servico.LojaAppService;
 
 public class PrincipalLoja {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		int id;
+		long id;
 		String endereco;
 		Lojas loja;
 
-		@SuppressWarnings("resource")
 		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
 		LojaAppService lojaAppService = (LojaAppService)fabrica.getBean ("lojaAppService");
@@ -35,8 +35,8 @@ public class PrincipalLoja {
 				    case 1:{
 				    	endereco = Console.readLine('\n' + "Informe o endereço da Loja: ");
 				    	loja = new Lojas(endereco);
-				    	id = lojaAppService.inclui(loja);
-				    	System.out.println("Loja "+id+" cadastrada com sucesso!");
+				    	loja = lojaAppService.inclui(loja);
+				    	System.out.println("Loja "+loja.getId()+" cadastrada com sucesso!");
 				    	break;
 				    }
 				    

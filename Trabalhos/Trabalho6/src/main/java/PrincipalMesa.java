@@ -16,17 +16,17 @@ import servico.MesaAppService;
 
 public class PrincipalMesa {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		int id;
-		int id_loja;
-		int codigo_funcionario;
+		long id;
+		long id_loja;
+		long codigo_funcionario;
 		int numero;
 		Funcionarios funcionario;
 		Lojas loja;
 		Mesas mesa;
 		List<Mesas> mesas = new ArrayList<Mesas>();
 
-		@SuppressWarnings("resource")
 		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
 		LojaAppService lojaAppService = (LojaAppService)fabrica.getBean ("lojaAppService");
@@ -68,9 +68,9 @@ public class PrincipalMesa {
 			    		
 			    		mesa = new Mesas(loja, funcionario, numero);
 			    		
-			    		id = mesaAppService.inclui(mesa);
+			    		mesa = mesaAppService.inclui(mesa);
 			    		
-			    		System.out.println("Mesa "+id+" cadastrada com sucesso!");
+			    		System.out.println("Mesa "+mesa.getId()+" cadastrada com sucesso!");
 			    		break;
 			    	}
 			    	

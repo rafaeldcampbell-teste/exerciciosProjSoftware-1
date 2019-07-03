@@ -10,8 +10,9 @@ import util.SingletonPerfis;
 
 public class Principal {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) throws ParseException, ObjetoNaoEncontradoException {
-		@SuppressWarnings("resource")
+		
 		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 		LoginService login = (LoginService)fabrica.getBean ("loginService");
 		String conta, senha;

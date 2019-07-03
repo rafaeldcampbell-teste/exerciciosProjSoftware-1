@@ -11,8 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-@NamedQueries({ @NamedQuery(name = "Usuario.recuperaListaUsuarios", query = "select u from Usuario u where u.conta = :conta and u.senha = :senha"),
-	@NamedQuery(name = "Usuario.recuperaPerfis", query = "select p from Perfil p where p.usuario.conta = :conta order by p.perfil")})
+@NamedQueries({ @NamedQuery(name = "Usuario.recuperaListaUsuarios", query = "select u from Usuario u where u.conta = ?1 and u.senha = ?2"),
+	@NamedQuery(name = "Usuario.recuperaPerfis", query = "select p from Perfil p where p.usuario.conta = ?1 order by p.perfil")})
 
 @Entity
 @Table(name = "usuarios")

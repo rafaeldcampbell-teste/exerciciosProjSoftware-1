@@ -2,7 +2,6 @@ package servico;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import anotacao.Perfil;
@@ -13,43 +12,45 @@ import modelo.Atendimentos;
 import modelo.Mesas;
 
 public class AtendimentoAppService {
-	@Autowired
-	private AtendimentoDAO atendimentoDAO;
-	@Autowired
-	private MesaDAO mesaDAO;
+
+	private AtendimentoDAO atendimentoDAO = null;
+
+	private MesaDAO mesaDAO = null;
 	
+	
+	public void setAtendimentoDAO(AtendimentoDAO atendimentoDAO) {
+		this.atendimentoDAO = atendimentoDAO;
+	}
+
+	public void setMesaDAO(MesaDAO mesaDAO) {
+		this.mesaDAO = mesaDAO;
+	}
+
 	@Perfil(nomes= {"dba"})
 	@Transactional
-	public int inclui(Atendimentos atendimento) {
-		return atendimentoDAO.inclui(atendimento);
+	public Atendimentos inclui(Atendimentos umAtendimento) {
+		Atendimentos atendimento = atendimentoDAO.inclui(umAtendimento);
+		return atendimento;
 	} 
 	
 	@Perfil(nomes= {"dba"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public void exclui(int id) throws ObjetoNaoEncontradoException {
-		atendimentoDAO.exclui(id);
+	public void exclui(Long id) throws ObjetoNaoEncontradoException {
+		Atendimentos umAtendimento = atendimentoDAO.getPorId(id);
+		atendimentoDAO.exclui(umAtendimento);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public Atendimentos recuperaAtendimento(int id) throws ObjetoNaoEncontradoException {
-		return atendimentoDAO.recuperaAtendimento(id);
+	public Atendimentos recuperaAtendimento(Long id) throws ObjetoNaoEncontradoException {
+		return atendimentoDAO.getPorIdComLock(id);
 	}
 	
 	@Perfil(nomes= {"adm"})
 	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public void atualizaValor(int id, float valor) throws ObjetoNaoEncontradoException {
-		atendimentoDAO.atualizaValor(id, valor);
-	}
-	
-	@Perfil(nomes= {"adm"})
-	@Transactional(rollbackFor={ObjetoNaoEncontradoException.class})
-	public List<Atendimentos> recuperaAtendimentos(int id) throws ObjetoNaoEncontradoException{
-		Mesas mesa = mesaDAO.recuperaUmaMesa(id);
+	public List<Atendimentos> recuperaAtendimentos(Long id) throws ObjetoNaoEncontradoException{
+		Mesas mesa = mesaDAO.getPorId(id);
 		List<Atendimentos> atendimentos = atendimentoDAO.recuperaAtendimentos(mesa);
-		if(atendimentos.isEmpty()) {
-			System.out.println("======> Nenhum atendimento encontrado para esta mesa!");
-		}
 		return atendimentos;
 	}
 }

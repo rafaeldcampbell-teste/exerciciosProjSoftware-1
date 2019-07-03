@@ -3,7 +3,6 @@ package login;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.UsuarioDAO;
@@ -12,12 +11,18 @@ import modelo.Usuario;
 
 @Service
 public class LoginService {
-	@Autowired
-	private UsuarioDAO usuarioDAO;
 	
-	private Usuario usuario;
+	private UsuarioDAO usuarioDAO = null;
+	private Usuario usuario = null;
 	
-	
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public boolean validaUsuario(String conta, String senha) {
 		List<Usuario> usuarios = usuarioDAO.recuperaListaUsuarios(conta, senha);
 		if(usuarios.size() != 1) {

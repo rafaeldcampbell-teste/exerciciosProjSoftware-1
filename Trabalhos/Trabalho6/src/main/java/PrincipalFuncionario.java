@@ -14,16 +14,16 @@ import servico.LojaAppService;
 
 public class PrincipalFuncionario {
 
+	@SuppressWarnings("resource")
 	public static void main(String[] args) {
-		int codigo;
-		int id_loja;
+		long codigo;
+		long id_loja;
 		String nome;
 		String funcao;
 		Lojas loja;
 		Funcionarios funcionario;
 		List<Funcionarios> funcionarios = new ArrayList<Funcionarios>();
 		
-		@SuppressWarnings("resource")
 		ApplicationContext fabrica = new ClassPathXmlApplicationContext("beans-jpa.xml");
 
 		LojaAppService lojaAppService = (LojaAppService)fabrica.getBean ("lojaAppService");
@@ -53,9 +53,9 @@ public class PrincipalFuncionario {
 			    		
 			    		funcionario = new Funcionarios(nome, funcao, loja);
 			    		
-			    		codigo = funcionarioAppService.inclui(funcionario);
+			    		funcionario = funcionarioAppService.inclui(funcionario);
 			    		
-			    		System.out.println("Funcionario "+codigo+" cadastrada com sucesso!");
+			    		System.out.println("Funcionario "+funcionario.getCodigo()+" cadastrada com sucesso!");
 			    		break;
 			    	}
 			    	
