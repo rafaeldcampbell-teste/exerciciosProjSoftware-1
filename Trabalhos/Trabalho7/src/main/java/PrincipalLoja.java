@@ -47,6 +47,7 @@ public class PrincipalLoja {
 						try {
 						    loja = lojaAppService.recuperaUmaLoja(id);
 						} catch (ObjetoNaoEncontradoException e) {
+			    			System.out.println("=====> Nenhuma loja encontrada!");
 						    break;
 						}
 		
@@ -59,6 +60,7 @@ public class PrincipalLoja {
 							lojaAppService.exclui(loja.getId());
 							System.out.println('\n' + "Loja removida com sucesso!");
 						    } catch (ObjetoNaoEncontradoException e) {
+				    			System.out.println("=====> Nenhuma loja encontrada!");
 						    	break;
 						    }
 						} else {

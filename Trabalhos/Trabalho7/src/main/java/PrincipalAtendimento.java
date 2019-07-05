@@ -48,6 +48,7 @@ public class PrincipalAtendimento {
 			    		try {
 			    			mesa = mesaAppService.recuperaUmaMesa(id_mesa);
 			    		} catch (ObjetoNaoEncontradoException e) {
+			    			System.out.println("=====> Nenhuma mesa encontrada!");
 			    			break;
 			    		}
 			    		String inicio = Console.readLine('\n' + "Digite o início do atendimento (dd/mm/yy HH:mm) : ");
@@ -74,6 +75,7 @@ public class PrincipalAtendimento {
 						try {
 						    atendimento = atendimentoAppService.recuperaAtendimento(id);
 						} catch (ObjetoNaoEncontradoException e) {
+			    			System.out.println("=====> Nenhum atendimento encontrado!");
 						    break;
 						}
 		
@@ -89,6 +91,7 @@ public class PrincipalAtendimento {
 							atendimentoAppService.exclui(atendimento.getId());
 							System.out.println('\n' + "Atendimento removido com sucesso!");
 						    } catch (Exception e) {
+				    			System.out.println("=====> Erro ao remover o atendimento!");
 						    	break;
 						    }
 						} else {
@@ -103,6 +106,7 @@ public class PrincipalAtendimento {
 			    		try{
 			    			atendimentos = atendimentoAppService.recuperaAtendimentos(id_mesa);
 			    		} catch (Exception e){
+			    			System.out.println("=====> Erro ao recuperar atendimentos!");
 			    			break;
 			    		}
 			    		for(Atendimentos a : atendimentos) {

@@ -33,6 +33,7 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
     public final T inclui(T o) {
 	try {
 	    em.persist(o);
+	    em.flush();
 	}
 	catch (RuntimeException e) {
 	    throw new InfraestruturaException(e);
@@ -44,6 +45,7 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
     public final void altera(T o) {
 	try {
 	    em.merge(o);
+	    em.flush();
 	}
 	catch (RuntimeException e) {
 	    throw new InfraestruturaException(e);
@@ -53,6 +55,7 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
     public final void exclui(T o) {
 	try {
 	    em.remove(o);
+	    em.flush();
 	}
 	catch (RuntimeException e) {
 	    throw new InfraestruturaException(e);

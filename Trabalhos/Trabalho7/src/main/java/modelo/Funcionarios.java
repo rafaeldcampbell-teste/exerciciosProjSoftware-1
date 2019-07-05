@@ -19,7 +19,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
-@NamedQueries({	@NamedQuery(name = "Funcionarios.recuperaFuncionarios", query = "select f from Funcionarios f order by f.id")})
+@NamedQueries({	@NamedQuery(name = "Funcionarios.recuperaFuncionarios", query = "select f from Funcionarios f where f.loja = ?1 order by f.id")})
 
 
 @Entity

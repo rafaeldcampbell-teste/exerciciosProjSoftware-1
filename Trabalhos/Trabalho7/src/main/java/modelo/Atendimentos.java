@@ -16,7 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@NamedQueries({ @NamedQuery(name = "Atendimentos.recuperaAtendimentos", query = "select a from Atendimentos a where a.mesa.id = ?1 order by a.id")})
+@NamedQueries({ @NamedQuery(name = "Atendimentos.recuperaAtendimentos", query = "select a from Atendimentos a where a.mesa = ?1 order by a.id")})
 
 
 @Entity

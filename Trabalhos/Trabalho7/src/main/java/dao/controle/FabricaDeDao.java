@@ -1,6 +1,6 @@
 package dao.controle;
 
-import net.sf.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.Enhancer;
 
 public class FabricaDeDao {
     // Esse método pode ser executado de 2 formas:

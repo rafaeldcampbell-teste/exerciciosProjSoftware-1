@@ -46,6 +46,7 @@ public class PrincipalFuncionario {
 			    		try {
 			    			loja = lojaAppService.recuperaUmaLoja(id_loja);
 			    		} catch (ObjetoNaoEncontradoException e) {
+			    			System.out.println("=====> Nenhuma loja encontrada!");
 			    			break;
 			    		}
 			    		nome = Console.readLine('\n' + "Digite o nome do funcionário: ");
@@ -65,6 +66,7 @@ public class PrincipalFuncionario {
 						try {
 						    funcionario = funcionarioAppService.recuperaUmFuncionario(codigo);
 						} catch (ObjetoNaoEncontradoException e) {
+			    			System.out.println("=====> Nenhum funcionário encontrado!");
 						    break;
 						}
 		
@@ -94,6 +96,7 @@ public class PrincipalFuncionario {
 			    		try{
 			    			funcionarios = funcionarioAppService.recuperaFuncionarios(id_loja);
 			    		} catch (Exception e){
+			    			System.out.println("=====> Erro ao recuperar funcionários!");
 			    			break;
 			    		}
 			    		for(Funcionarios f : funcionarios) {

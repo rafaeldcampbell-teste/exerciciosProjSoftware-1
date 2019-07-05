@@ -50,7 +50,7 @@ public class PrincipalMesa {
 			    		try {
 			    			loja = lojaAppService.recuperaUmaLoja(id_loja);
 			    		} catch (ObjetoNaoEncontradoException e) {
-			    			System.out.println("=====> Loja não cadastrada!");
+			    			System.out.println("=====> Nenhuma loja encontrada!");
 			    			break;
 			    		}
 			    		
@@ -58,7 +58,7 @@ public class PrincipalMesa {
 			    		try {
 			    			funcionario = funcionarioAppService.recuperaUmFuncionario(codigo_funcionario);
 			    		}catch (ObjetoNaoEncontradoException e) {
-			    			System.out.println("=====> Funcionário não cadastrado!");
+			    			System.out.println("=====> Nenhuma funcionário encontrado!");
 			    			break;
 			    		} catch (Exception e) {
 			    			break;
@@ -80,7 +80,7 @@ public class PrincipalMesa {
 						try {
 						    mesa = mesaAppService.recuperaUmaMesa(id);
 						} catch (ObjetoNaoEncontradoException e) {
-			    			System.out.println("=====> Mesa não cadastrada!");
+			    			System.out.println("=====> Nenhuma mesa encontrada!");
 						    break;
 						}
 		
@@ -96,6 +96,7 @@ public class PrincipalMesa {
 							mesaAppService.exclui(mesa.getId());
 							System.out.println('\n' + "Mesa removida com sucesso!");
 						    } catch (Exception e) {
+				    			System.out.println("=====> Erro ao remover mesa!");
 						    	break;
 						    }
 						} else {
@@ -111,9 +112,7 @@ public class PrincipalMesa {
 			    			mesas = mesaAppService.recuperaMesasPorLoja(id_loja);
 			    		} catch(ObjetoNaoEncontradoException objE) {
 			    			System.out.println("Nenhuma mesa cadastrada!");
-			    		} catch (Exception e){
-			    			break;
-			    		}
+			    		} 
 			    		for(Mesas m : mesas) {
 			    			System.out.println('\n' + "Id = " + m.getId() 
 											   	   	+ "\nLoja = " + m.getLoja().getId()
@@ -129,9 +128,7 @@ public class PrincipalMesa {
 			    		try{
 			    			mesas = mesaAppService.recuperaMesasPorFuncionario(codigo_funcionario);
 			    		} catch(ObjetoNaoEncontradoException objE) {
-			    			System.out.println("Nenhuma mesa cadastrada!");
-			    		}catch (Exception e){
-			    			break;
+			    			System.out.println("=====> Nenhuma mesa encontrada!");
 			    		}
 			    		for(Mesas m : mesas) {
 			    			System.out.println('\n' + "Id = " + m.getId() 
