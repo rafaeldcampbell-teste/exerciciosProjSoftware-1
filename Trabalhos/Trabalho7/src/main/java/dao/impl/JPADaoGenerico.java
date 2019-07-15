@@ -31,66 +31,42 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
     }
 
     public final T inclui(T o) {
-	try {
 	    em.persist(o);
 	    em.flush();
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
-
-	return o;
+	    return o;
     }
 
     public final void altera(T o) {
-	try {
 	    em.merge(o);
 	    em.flush();
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
     }
 
     public final void exclui(T o) {
-	try {
 	    em.remove(o);
 	    em.flush();
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
     }
 
     public final T getPorId(PK id) throws ObjetoNaoEncontradoException {
 	T t = null;
-	try {
-	    t = em.find(tipo, id);
+    t = em.find(tipo, id);
+    em.flush();
 
-	    if (t == null) {
-		throw new ObjetoNaoEncontradoException();
-	    }
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
+    if (t == null) {
+	throw new ObjetoNaoEncontradoException();
+    }
 	return t;
     }
 
     public final T getPorIdComLock(PK id) throws ObjetoNaoEncontradoException {
-	T t = null;
-	try {
+    	T t = null;
 	    t = em.find(tipo, id, LockModeType.PESSIMISTIC_WRITE);
+	    em.flush();
 
 	    if (t == null) {
 		throw new ObjetoNaoEncontradoException();
 	    }
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
 
-	return t;
+	    return t;
     }
 
     @SuppressWarnings("unchecked")
@@ -113,9 +89,6 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
 	catch (NoResultException e) {
 	    throw new ObjetoNaoEncontradoException();
 	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
     }
 
     @SuppressWarnings("unchecked")
@@ -124,11 +97,11 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
 	// Dentro de buscaUltimoOuPrimeiro =
 	// dao.impl.ProdutoDAOImpl$$EnhancerByCGLIB$$fd6d4de1
 
-	T t = null;
-	try {
+		T t = null;
 	    List<T> lista;
 	    String nomeDaBusca = getNomeDaBuscaPeloMetodo(metodo);
 	    Query namedQuery = em.createNamedQuery(nomeDaBusca);
+	    
 
 	    if (argumentos != null) {
 		for (int i = 0; i < argumentos.length; i++) {
@@ -145,15 +118,10 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
 	    }
 
 	    return t;
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
     }
 
     @SuppressWarnings("unchecked")
     public final List<T> buscaLista(Method metodo, Object[] argumentos) {
-	try {
 	    System.out.println("Dentro de buscaLista = " + this.getClass().getName());
 	    String nomeDaBusca = getNomeDaBuscaPeloMetodo(metodo);
 	    Query namedQuery = em.createNamedQuery(nomeDaBusca);
@@ -165,15 +133,10 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
 		}
 	    }
 	    return (List<T>) namedQuery.getResultList();
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
     }
 
     @SuppressWarnings("unchecked")
     public final Set<T> buscaConjunto(Method metodo, Object[] argumentos) {
-	try {
 	    String nomeDaBusca = getNomeDaBuscaPeloMetodo(metodo);
 	    Query namedQuery = em.createNamedQuery(nomeDaBusca);
 
@@ -187,10 +150,6 @@ public class JPADaoGenerico<T, PK extends Serializable> implements DaoGenerico<T
 	    List<T> lista = namedQuery.getResultList();
 
 	    return new LinkedHashSet<T>(lista);
-	}
-	catch (RuntimeException e) {
-	    throw new InfraestruturaException(e);
-	}
     }
 
     // Se uma subclasse (Proxy) declara um método (getNomeDaBuscaPeloMetodo())

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import anotacao.Perfil;
 import dao.LojaDAO;
+import excecao.LojaComEndereçoSemRua;
 import excecao.ObjetoNaoEncontradoException;
 import modelo.Lojas;
 
@@ -21,6 +22,9 @@ public class LojaAppService {
 	@Perfil(nomes= {"dba"})
 	@Transactional
 	public Lojas inclui(Lojas umaLoja) {
+		if(!umaLoja.getEndereco().toLowerCase().contains("rua")) {
+			throw new LojaComEndereçoSemRua(umaLoja.getEndereco());
+		}
 		Lojas loja = lojaDAO.inclui(umaLoja);
 		return loja;
 	}
